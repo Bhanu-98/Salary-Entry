@@ -66,12 +66,11 @@ public class Salary {
 			Row titleRow = sheet.createRow(rowNum);
 			Cell titleCell = titleRow.createCell(column);
 			titleCell.setCellValue("Salaries for the month of" + month + " " + year);
-		
 
 			rowNum = rowNum + 1;
 			Row headingRow = sheet.createRow(rowNum);
 
-			//column = column + 1;
+			// column = column + 1;
 
 			Cell slNoHeadingCell = headingRow.createCell(column);
 			slNoHeadingCell.setCellValue("SL No");
@@ -119,7 +118,7 @@ public class Salary {
 			column = column + 1;
 			rowNum = rowNum + 1;
 
-			enterValuesToSheet(sheet, enteredEmployees, rowNum, column);
+			enterValuesToSheet(sheet, enteredEmployees);
 
 			File file = new File(filename);
 			if (!file.exists()) {
@@ -136,9 +135,58 @@ public class Salary {
 
 	}
 
-	private static void enterValuesToSheet(HSSFSheet sheet, ArrayList<EmployeeModel> enteredEmployees, int rowNum,
-			int column) {
-		// TODO Auto-generated method stub
+	private static void enterValuesToSheet(HSSFSheet sheet, ArrayList<EmployeeModel> enteredEmployees) {
+		int i = 1;
+		int rowNum = 2;
+		int column = 0;
+		for (EmployeeModel employeeModel : enteredEmployees) {
+
+			Row employeeRow = sheet.createRow(rowNum);
+			Cell slNoCell = employeeRow.createCell(column);
+			slNoCell.setCellValue(i);
+
+			column = column + 1;
+
+			Cell nameCell = employeeRow.createCell(column);
+			nameCell.setCellValue(employeeModel.getEmpName());
+
+			column = column + 1;
+
+			Cell designationCell = employeeRow.createCell(column);
+			designationCell.setCellValue(employeeModel.getDesignation());
+
+			column = column + 1;
+
+			Cell salaryCell = employeeRow.createCell(column);
+			salaryCell.setCellValue(employeeModel.getSalary());
+
+			column = column + 1;
+
+			Cell allowanceCell = employeeRow.createCell(column);
+			allowanceCell.setCellValue(employeeModel.getAllowance());
+
+			column = column + 1;
+
+			Cell deductionCell = employeeRow.createCell(column);
+			deductionCell.setCellValue(employeeModel.getDeductions());
+
+			column = column + 1;
+
+			Cell netPayableCell = employeeRow.createCell(column);
+			netPayableCell.setCellValue(employeeModel.getNetPayable());
+
+			column = column + 1;
+
+			Cell paidCell = employeeRow.createCell(column);
+			paidCell.setCellValue(employeeModel.getPaid());
+
+			column = column + 1;
+
+			Cell remarksCell = employeeRow.createCell(column);
+			remarksCell.setCellValue(employeeModel.getRemarks());
+			rowNum++;
+			i++;
+		}
 
 	}
 
@@ -160,23 +208,21 @@ public class Salary {
 			System.out.println("Enter Base Salary:");
 			float salary = scanner.nextFloat();
 
-			System.out.println("Enter Base Salary:");
+			System.out.println("Enter Allowance:");
 			float allowance = scanner.nextFloat();
 
-			System.out.println("Enter Base Salary:");
+			System.out.println("Enter Deductions:");
 			float deductions = scanner.nextFloat();
 
-			System.out.println("Enter Base Salary:");
+			System.out.println("Enter Net Payable:");
 			float netPayable = scanner.nextFloat();
 
-			System.out.println("Enter Base Salary:");
+			System.out.println("Enter Paid:");
 			float paid = scanner.nextFloat();
 
-			System.out.println("Enter Base Salary:");
-			String remarks = scanner.nextLine();
-			
-			scanner.close();
-			
+//			System.out.println("Enter Remarks:");
+//			String remarks = scanner.nextLine();
+
 			EmployeeModel employeeModel = new EmployeeModel();
 			employeeModel.setEmpName(employeeName);
 			employeeModel.setDesignation(designation);
@@ -185,10 +231,11 @@ public class Salary {
 			employeeModel.setDeductions(deductions);
 			employeeModel.setNetPayable(netPayable);
 			employeeModel.setPaid(paid);
-			employeeModel.setRemarks(remarks);
+			//employeeModel.setRemarks(remarks);
 
 			employees.add(employeeModel);
 		}
+		scanner.close();
 
 		return employees;
 
